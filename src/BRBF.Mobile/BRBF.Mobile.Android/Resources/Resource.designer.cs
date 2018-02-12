@@ -11,7 +11,7 @@
 
 [assembly: global::Android.Runtime.ResourceDesignerAttribute("BatonRougeBusinessFinder.Mobile.Droid.Resource", IsApplication=true)]
 
-namespace BRBF.Mobile.Droid
+namespace BatonRougeBusinessFinder.Mobile.Droid
 {
 	
 	
@@ -26,7 +26,7 @@ namespace BRBF.Mobile.Droid
 		
 		public static void UpdateIdValues()
 		{
-			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::BRBF.Mobile.Droid.Resource.Attribute.actionBarSize;
+			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::BatonRougeBusinessFinder.Mobile.Droid.Resource.Attribute.actionBarSize;
 		}
 		
 		public partial class Animation

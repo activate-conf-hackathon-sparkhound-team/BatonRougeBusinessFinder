@@ -6,6 +6,8 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using BatonRougeBusinessFinder.Mobile.Droid;
+using BatonRougeBusinessFinder.Mobile;
 
 namespace BRBF.Mobile.Droid
 {
