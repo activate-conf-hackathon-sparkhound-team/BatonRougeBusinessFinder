@@ -1,0 +1,17 @@
+<nav-menu></nav-menu>
+<div class='container-fluid' style="margin-top:60px;margin-bottom:50px;">
+    <router-outlet></router-outlet>
+</div>
+<footer class="footer" style="position:fixed;bottom:0;">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                <p class="pull-right">
+                    <a [routerLink]="['terms-and-conditions']">Terms and Conditions</a>
+                    | <a [routerLink]="['privacy-policy']">Privacy Policy</a>
+                </p>
+                <p>&copy; 2018 Baton Rouge Business Finder</p>
+            </div>
+        </div>
+    </div>
+</footer>
