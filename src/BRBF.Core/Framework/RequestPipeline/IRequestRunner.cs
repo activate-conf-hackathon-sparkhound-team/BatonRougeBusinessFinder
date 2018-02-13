@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BRBF.Core.Framework
+namespace BRBF.Core.Framework.RequestPipeline
 {
     public interface IRequestRunner
     {

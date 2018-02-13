@@ -1,4 +1,4 @@
-﻿using BRBF.Core.Framework;
+﻿using BRBF.Core.Framework.RequestPipeline;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -49,8 +49,7 @@ namespace BRBF.Importer
 
             serviceCollection
                 .AddDbContext<BatonRougeBusinessFinderDbContext>(options => 
-                    options.UseSqlServer(configuration.GetConnectionString("DbContext")))
-                .AddUnitOfWork<BatonRougeBusinessFinderDbContext>();
+                    options.UseSqlServer(configuration.GetConnectionString("DbContext")));
         }
     }
 }

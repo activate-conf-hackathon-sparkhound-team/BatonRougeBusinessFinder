@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace BRBF.Core.Framework.RequestPipelineBehaviors
+namespace BRBF.Core.Framework.RequestPipeline.Behaviors
 {
     public class LoggingBehavior<TRequest, TResponse> :
         //IRequestPreProcessor<TRequest>,

@@ -35,8 +35,7 @@ namespace BRBF.DataAccess.Services
 
             foreach (var row in rows)
             {
-                RegisteredBusiness entity;
-                if (!allRegisteredBusinesses.TryGetValue(row.AccountNumber, out entity))
+                if (!allRegisteredBusinesses.TryGetValue(row.AccountNumber, out RegisteredBusiness entity))
                 {
                     // Create a new entity.
                     entity = new Core.Entities.RegisteredBusiness();

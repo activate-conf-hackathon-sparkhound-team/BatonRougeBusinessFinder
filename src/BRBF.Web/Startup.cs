@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using BatonRougeBusinessFinder.Core.Framework;
-using BatonRougeBusinessFinder.Core.Framework.RequestPipelineBehaviors;
+using BRBF.Core.Framework;
+using BRBF.Core.Framework.RequestPipeline;
+using BRBF.Core.Framework.RequestPipeline.Behaviors;
+using BRBF.DataAccess;
 using MediatR;
 using MediatR.Pipeline;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -30,12 +33,29 @@ namespace src
             // Add framework services.
             services.AddMvc();
 
-            // add Mediatr
-            ConfigureMediatr(services);
+            // Entity Framework
+            services
+                .AddDbContext<BatonRougeBusinessFinderDbContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("DbContext")));
 
-            // add Runners
+            // add Mediatr
+            var assemblies = new List<Assembly>
+            {
+                typeof(RequestRunner).GetTypeInfo().Assembly
+            };
+            services.AddMediatR(assemblies);
+            // Request Pipeline Behaviors
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPreProcessorBehavior<,>));
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPostProcessorBehavior<,>));
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(TransactionBehavior<,>));
+            //serviceCollection.AddSingleton(typeof(IRequestPreProcessor<>), typeof(LoggingBehavior<,>));
+            //serviceCollection.AddTransient(typeof(IRequestPostProcessor<,>), typeof(LoggingBehavior<,>));
+
+            // Additional Services
             services.AddTransient<IRequestHandlerTypeProvider, RequestHandlerTypeProvider>();
             services.AddTransient<IRequestRunner, RequestRunner>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -66,19 +86,6 @@ namespace src
                     name: "spa-fallback",
                     defaults: new { controller = "Home", action = "Index" });
             });
-        }
-
-
-        public void ConfigureMediatr(IServiceCollection serviceCollection)
-        {
-            var assemblies = new List<Assembly>();
-            assemblies.Add(typeof(RequestRunner).GetTypeInfo().Assembly);
-            serviceCollection.AddMediatR(assemblies);
-            serviceCollection.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPreProcessorBehavior<,>));
-            serviceCollection.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPostProcessorBehavior<,>));
-            serviceCollection.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
-            //serviceCollection.AddSingleton(typeof(IRequestPreProcessor<>), typeof(LoggingBehavior<,>));
-            //serviceCollection.AddTransient(typeof(IRequestPostProcessor<,>), typeof(LoggingBehavior<,>));
         }
     }
 }

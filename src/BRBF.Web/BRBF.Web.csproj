@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BRBF.Core\BRBF.Core.csproj" />
+    <ProjectReference Include="..\BRBF.DataAccess\BRBF.DataAccess.csproj" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
