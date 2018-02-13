@@ -234,3 +234,4 @@ _Pvt_Extensions
 /src/BRBF.Web/ClientApp/dist/
 /src/BRBF.Web/node_modules
 /src/BRBF.Web/yarn.lock
+*.jfm
