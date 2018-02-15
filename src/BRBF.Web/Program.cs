@@ -22,6 +22,7 @@ namespace src
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
                 .ConfigureAppConfiguration((hostingContext, config) => ConfigureAppConfiguration(args, hostingContext, config))
+                .ConfigureLogging(ConfigureLogging)
                 .Build();
 
         protected static void ConfigureAppConfiguration(string[] args, WebHostBuilderContext hostingContext, IConfigurationBuilder config)
@@ -46,6 +47,13 @@ namespace src
             {
                 config.AddCommandLine(args);
             }
+        }
+
+        protected static void ConfigureLogging(WebHostBuilderContext hostingContext, ILoggingBuilder logging)
+        {
+            logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
+            logging.AddConsole();
+            logging.AddDebug();
         }
     }
 }

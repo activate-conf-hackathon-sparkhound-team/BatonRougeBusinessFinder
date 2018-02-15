@@ -1,5 +1,6 @@
 ﻿using BRBF.Core.Business.Import;
 using BRBF.Core.Entities;
+using BRBF.DataAccess.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using SODA;
@@ -12,13 +13,11 @@ using System.Threading.Tasks;
 
 namespace BRBF.DataAccess.Services
 {
-    public class ImportDataService : IImportDataService
+    public class ImportDataService : BaseRepository, IImportDataService
     {
-        public BatonRougeBusinessFinderDbContext Context { get; }
-
         public ImportDataService(BatonRougeBusinessFinderDbContext context)
+            : base(context)
         {
-            Context = context;
         }
 
         public async Task<bool> Import(CancellationToken cancellationToken = default(CancellationToken))
