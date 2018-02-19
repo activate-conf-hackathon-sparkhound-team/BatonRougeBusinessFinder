@@ -1,4 +1,4 @@
-﻿using BRBF.Core.Framework;
+﻿using BRBF.Core.Framework.RequestPipeline;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BRBF.Core.Business.SampleData
 {
-    public class GetSampleDataQueryHandler : IQueryHandler<GetSampleDataQueryRequest, GetSampleDataQueryResponse>
+    public class GetSampleDataQueryHandler : IQueryHandler<GetSampleDataQueryRequest, IEnumerable<WeatherForecastDto>>
     {
         private static string[] Summaries = new[]
         {
@@ -19,7 +19,7 @@ namespace BRBF.Core.Business.SampleData
         {
         }
 
-        public async Task<GetSampleDataQueryResponse> Handle(GetSampleDataQueryRequest request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<WeatherForecastDto>> Handle(GetSampleDataQueryRequest request, CancellationToken cancellationToken)
         {
             var rng = new Random();
             var forecasts = Enumerable.Range(1, 5).Select(index => new WeatherForecastDto
@@ -28,19 +28,7 @@ namespace BRBF.Core.Business.SampleData
                 TemperatureC = rng.Next(-20, 55),
                 Summary = Summaries[rng.Next(Summaries.Length)]
             });
-            var response = new GetSampleDataQueryResponse() { WeatherForecasts = forecasts };
-            return response;
+            return forecasts;
         }
     }
-
-    public class GetSampleDataQueryRequest : IQuery<GetSampleDataQueryResponse>
-    {
-
-    }
-
-    public class GetSampleDataQueryResponse
-    {
-        public IEnumerable<WeatherForecastDto> WeatherForecasts { get; set; }
-    }
-
 }

@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace BRBF.Core.Framework
+namespace BRBF.Core.Framework.RequestPipeline
 {
     public class RequestRunner : IRequestRunner
     {

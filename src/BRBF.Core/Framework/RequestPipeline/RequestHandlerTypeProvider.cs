@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 
-namespace BRBF.Core.Framework
+namespace BRBF.Core.Framework.RequestPipeline
 {
     public class RequestHandlerTypeProvider : IRequestHandlerTypeProvider
     {
