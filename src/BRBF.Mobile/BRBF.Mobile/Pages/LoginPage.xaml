@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BRBF.Mobile.Pages.LoginPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Entry Placeholder="Username" />
+            <Entry IsPassword="true" Placeholder="Password" />
+            <Button Command="{Binding LoginCommand}" CommandParameter="local" HeightRequest="50" Text="Login" />
+            <Image HeightRequest="50" Source="Images/GOOGLE.png">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding LoginCommand}" CommandParameter="google" />
+                </Image.GestureRecognizers>
+            </Image>
+            <Image HeightRequest="50" Source="Images/FACEBOOK.png">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding LoginCommand}" CommandParameter="facebook" />
+                </Image.GestureRecognizers>
+            </Image>
+            <Image HeightRequest="50" Source="Images/TWITTER.png">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding LoginCommand}" CommandParameter="twitter" />
+                </Image.GestureRecognizers>
+            </Image>
+            <Image HeightRequest="50" Source="Images/Microsoft.png">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding LoginCommand}" CommandParameter="microsoft" />
+                </Image.GestureRecognizers>
+            </Image>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BRBF.Mobile.Pages.FavoritesPage"
+             xmlns:constants="clr-namespace:BRBF.Mobile">
+    <ContentPage.Content>
+        <StackLayout HorizontalOptions="FillAndExpand">
+            <StackLayout Margin="20,0,20,0" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                <Label VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" Text="{x:Static constants:Constants+FavoritesItems.NAIC}"/>
+                <Entry VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" Text="{Binding NAIC}"/>
+            </StackLayout>
+            <StackLayout Margin="20,0,20,0" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                <Label VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" Text="{x:Static constants:Constants+FavoritesItems.LocationDistance}"/>
+                <Entry VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" Text="{Binding LocationDistance}"/>
+            </StackLayout>
+            <StackLayout  Margin="20,0,20,0" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                <Label VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" Text="{x:Static constants:Constants+FavoritesItems.Open}"/>
+                <Switch VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" IsToggled="{Binding Open}"/>
+            </StackLayout>
+            <StackLayout Margin="20,0,20,0" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                <Label VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" Text="{x:Static constants:Constants+FavoritesItems.Close}"/>
+                <Switch VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" IsToggled="{Binding Close}"/>
+            </StackLayout>
+            <StackLayout Margin="20,0,20,0" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                <Label VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" Text="{x:Static constants:Constants+FavoritesItems.ABCStatus}"/>
+                <Picker VerticalOptions="CenterAndExpand"  HorizontalOptions="FillAndExpand" ItemsSource="{Binding AnswerChoices}"/>
+            </StackLayout>
+            <StackLayout Margin="20,0,20,0" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                <Label VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" Text="{x:Static constants:Constants+FavoritesItems.OwnershipType}"/>
+                <Picker VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" ItemsSource="{Binding OwnershipType}"/>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

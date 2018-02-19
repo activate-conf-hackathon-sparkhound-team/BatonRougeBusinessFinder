@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BRBF.Mobile.Pages.NavigationMenuPage" Title="Baton Rouge Restaurant Finder"
+             xmlns:local="clr-namespace:BRBF.Mobile.Models"
+             xmlns:viewModels="clr-namespace:BRBF.Mobile.ViewModels" 
+             xmlns:constants="clr-namespace:BRBF.Mobile">
+    <ContentPage.Content>
+        <StackLayout>
+            <ListView x:Name="listView">
+                <ListView.ItemsSource>
+                    <x:Array Type="{x:Type local:NavigationMenuItem}">
+                        <local:NavigationMenuItem Title="{x:Static constants:Constants+Pages.BusinessList}" TargetType="{x:Type viewModels:BusinessListPageViewModel}" />
+                        <local:NavigationMenuItem Title="{x:Static constants:Constants+Pages.Favorites}" TargetType="{x:Type viewModels:FavoritesPageViewModel}" />
+                        <local:NavigationMenuItem Title="Reminders" TargetType="{x:Type local:NavigationMenuItem}" />
+                    </x:Array>
+                </ListView.ItemsSource>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid Padding="5,10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="30"/>
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Image Source="{Binding IconSource}" />
+                                <Label Grid.Column="1" Text="{Binding Title}" />
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BRBF.Mobile.Pages.BusinessListPage"
+             xmlns:constants ="clr-namespace:BRBF.Mobile">
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                <Label Text="{x:Static constants:Constants+Text.Search}"/>
+                <Entry HorizontalOptions="FillAndExpand" Text="{Binding SearchString}"/>
+            </StackLayout>
+            <ListView ItemsSource="{Binding Businesses}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

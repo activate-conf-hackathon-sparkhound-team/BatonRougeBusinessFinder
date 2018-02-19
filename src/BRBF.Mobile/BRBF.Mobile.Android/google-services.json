@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "496888138172",
+    "firebase_url": "https://batonrougerestaurantfinder.firebaseio.com",
+    "project_id": "batonrougerestaurantfinder",
+    "storage_bucket": "batonrougerestaurantfinder.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:496888138172:android:911e1f5ed9661feb",
+        "android_client_info": {
+          "package_name": "com.companyname.BatonRougeBusinessFinder.Mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "496888138172-4g8qjdttn5crtrk8fbadig4nq2svdvl5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgpwreH6maJjWwqF4OzK4qlJxXxDHkVgs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -11,7 +11,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BRBF.Mobile.Android", "src\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BRBF.Mobile.iOS", "src\BRBF.Mobile\BRBF.Mobile.iOS\BRBF.Mobile.iOS.csproj", "{EC4812EF-30FC-4A04-8985-D8FCF998DADA}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "BRBF.Shared", "BRBF.Shared\BRBF.Shared.shproj", "{F5CD4BE3-8CB2-4BAE-BB89-BE99D7695373}"
+EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		BRBF.Shared\BRBF.Shared.projitems*{f5cd4be3-8cb2-4bae-bb89-be99d7695373}*SharedItemsImports = 13
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Ad-Hoc|Any CPU = Ad-Hoc|Any CPU
 		Ad-Hoc|iPhone = Ad-Hoc|iPhone

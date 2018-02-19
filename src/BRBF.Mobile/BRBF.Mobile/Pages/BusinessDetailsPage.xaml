@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BRBF.Mobile.Pages.BusinessDetailsPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="{Binding Name}"
+                HorizontalOptions="CenterAndExpand" />
+            <Label Text="{Binding NAIC}"
+                HorizontalOptions="CenterAndExpand" />
+            <Label Text="{Binding OpenedStatus}"
+                HorizontalOptions="CenterAndExpand" />
+            <Label Text="{Binding ABCStatus}"
+                HorizontalOptions="CenterAndExpand" />
+            <Label Text="{Binding OwenshipType}"
+                HorizontalOptions="CenterAndExpand" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
