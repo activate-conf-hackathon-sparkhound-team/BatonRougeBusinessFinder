@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using BRBF.Core.Business.Search;
 using BRBF.Core.Framework;
 using BRBF.Core.Framework.RequestPipeline;
 using BRBF.Core.Framework.RequestPipeline.Behaviors;
 using BRBF.DataAccess;
+using BRBF.DataAccess.Repositories;
 using MediatR;
 using MediatR.Pipeline;
 using Microsoft.AspNetCore.Builder;
@@ -56,6 +58,7 @@ namespace src
             services.AddTransient<IRequestHandlerTypeProvider, RequestHandlerTypeProvider>();
             services.AddTransient<IRequestRunner, RequestRunner>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<ISearchRepository, SearchRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

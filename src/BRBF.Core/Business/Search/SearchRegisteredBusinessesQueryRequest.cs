@@ -4,8 +4,7 @@ using System.Collections.Generic;
 
 namespace BRBF.Core.Business.Search
 {
-    public class SearchRegisteredBusinessesQueryRequest : IQuery<PagedResponseDto<RegisteredBusinessDto>>
+    public class SearchRegisteredBusinessesQueryRequest : PagedRequestDto<string>, IQuery<PagedResponseDto<RegisteredBusinessDto>>
     {
-        public string SearchText { get; set; }
     }
 }

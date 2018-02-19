@@ -27,8 +27,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\app\services\api.service.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\BRBF.Core\BRBF.Core.csproj" />
     <ProjectReference Include="..\BRBF.DataAccess\BRBF.DataAccess.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\app\services\api.service.ts" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">

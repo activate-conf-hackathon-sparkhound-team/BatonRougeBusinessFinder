@@ -2,8 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { MdcLinearProgressModule } from '@angular-mdc/web';
+import { MdcSnackbar } from '@angular-mdc/web';
 
 import { AppComponent } from './components/app/app.component';
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
@@ -12,6 +14,8 @@ import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { CounterComponent } from './components/counter/counter.component';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 import { TermsAndConditionsComponent } from './components/terms-and-conditions/terms-and-conditions.component';
+
+import { ApiService } from './services/api.service';
 
 @NgModule({
     declarations: [
@@ -26,8 +30,9 @@ import { TermsAndConditionsComponent } from './components/terms-and-conditions/t
     imports: [
         CommonModule,
         BrowserModule,
-        HttpModule,
+        HttpClientModule,
         FormsModule,
+        MdcLinearProgressModule,
         RouterModule.forRoot([
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'home', component: HomeComponent },
@@ -39,6 +44,8 @@ import { TermsAndConditionsComponent } from './components/terms-and-conditions/t
         ])
     ],
     providers: [
+        MdcSnackbar,
+        ApiService,
         { provide: 'BASE_URL', useFactory: getBaseUrl }
     ],
     bootstrap: [AppComponent],

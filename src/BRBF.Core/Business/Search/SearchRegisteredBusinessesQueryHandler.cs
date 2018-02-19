@@ -11,17 +11,20 @@ namespace BRBF.Core.Business.Search
     public class SearchRegisteredBusinessesQueryHandler
         : IQueryHandler<SearchRegisteredBusinessesQueryRequest, PagedResponseDto<RegisteredBusinessDto>>
     {
-        public SearchRegisteredBusinessesQueryHandler()
+        public SearchRegisteredBusinessesQueryHandler(ISearchRepository searchRepository)
         {
-
+            SearchRepository = searchRepository;
         }
 
-        public Task<PagedResponseDto<RegisteredBusinessDto>> Handle(
+        public ISearchRepository SearchRepository { get; }
+
+        public async Task<PagedResponseDto<RegisteredBusinessDto>> Handle(
             SearchRegisteredBusinessesQueryRequest request, 
             CancellationToken cancellationToken
             )
         {
-            throw new NotImplementedException();
+            var result = await SearchRepository.SearchRegisteredBusinesses(request);
+            return result;
         }
     }
 }

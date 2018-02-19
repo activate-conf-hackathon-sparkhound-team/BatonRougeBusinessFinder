@@ -6,18 +6,18 @@ namespace BRBF.Core.Framework
 {
     public class PagedResponseDto<TDataDto> where TDataDto : IDto
     {
-        public IEnumerable<TDataDto> Data { get; set; }
-        public int TotalCount { get; set; }
         public int PageSize { get; set; }
         public int PageNumber { get; set; }
+        public int TotalCount { get; set; }
+        public IEnumerable<TDataDto> Data { get; set; }
 
         public PagedResponseDto() { }
-        public PagedResponseDto(IEnumerable<TDataDto> data, int totalCount, int pageSize, int pageNumber)
+        public PagedResponseDto(int pageSize, int pageNumber, int totalCount, IEnumerable<TDataDto> data)
         {
-            Data = data;
-            TotalCount = totalCount;
             PageSize = pageSize;
             PageNumber = pageNumber;
+            TotalCount = totalCount;
+            Data = data;
         }
     }
 }
