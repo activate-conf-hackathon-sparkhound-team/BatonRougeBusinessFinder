@@ -1,19 +1,23 @@
 ﻿import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { BusyService } from './busy.service';
 
 @Injectable()
 export class ApiService {
     constructor(
         private http: HttpClient,
+        private busyService: BusyService,
         @Inject('BASE_URL') private baseUrl: string
     ) {
-
+        
     }
 
     protected async get<TQuery extends Query<TResponse>, TResponse>(query: string, data: TQuery): Promise<TResponse> {
         try {
             let queryString = jsonToQueryString(data);
-            let response = await this.http.get<TResponse>(`${this.baseUrl}api/${query}${queryString}`).toPromise();
+            let promise = this.http.get<TResponse>(`${this.baseUrl}api/${query}${queryString}`).toPromise();
+            this.busyService.addPromise(promise);
+            let response = await promise;
             return response;
         } catch (error) {
             console.error(error);
@@ -23,7 +27,9 @@ export class ApiService {
 
     protected async post<TCommand extends Command<TResponse>, TResponse>(command: string, data: TCommand): Promise<TResponse> {
         try {
-            let response = this.http.post<TResponse>(`${this.baseUrl}api/${command}`, data).toPromise();
+            let promise = this.http.post<TResponse>(`${this.baseUrl}api/${command}`, data).toPromise();
+            this.busyService.addPromise(promise);
+            let response = await promise;
             return response;
         } catch (error) {
             console.error(error);

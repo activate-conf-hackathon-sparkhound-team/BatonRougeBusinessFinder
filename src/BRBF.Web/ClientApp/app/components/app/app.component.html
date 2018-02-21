@@ -1,8 +1,15 @@
 <nav-menu></nav-menu>
-<div class='container-fluid' style="margin-top:60px;margin-bottom:50px;">
-    <mdc-linear-progress></mdc-linear-progress>
-    <router-outlet></router-outlet>
+
+<div style="position:relative;">
+    <div style="margin-top:51px;margin-bottom:50px;"
+         [ngBusy]="{busy: busyPromise, message: 'Loading...', delay: 100, minDuration: 650}">
+        <div class='container-fluid' style="padding-top:20px">
+            <mdc-linear-progress role="progressbar"></mdc-linear-progress>
+            <router-outlet style="margin-top:10px;"></router-outlet>
+        </div>
+    </div>
 </div>
+
 <footer class="footer" style="position:fixed;bottom:0;">
     <div class="container-fluid">
         <div class="row">

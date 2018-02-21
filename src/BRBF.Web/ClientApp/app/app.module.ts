@@ -6,6 +6,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { MdcLinearProgressModule } from '@angular-mdc/web';
 import { MdcSnackbar } from '@angular-mdc/web';
+import { BusyService } from './services/busy.service';
+import { NgBusyModule } from 'ng-busy';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './components/app/app.component';
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
@@ -33,6 +36,8 @@ import { ApiService } from './services/api.service';
         HttpClientModule,
         FormsModule,
         MdcLinearProgressModule,
+        BrowserAnimationsModule,
+        NgBusyModule,
         RouterModule.forRoot([
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'home', component: HomeComponent },
@@ -46,6 +51,7 @@ import { ApiService } from './services/api.service';
     providers: [
         MdcSnackbar,
         ApiService,
+        BusyService,
         { provide: 'BASE_URL', useFactory: getBaseUrl }
     ],
     bootstrap: [AppComponent],

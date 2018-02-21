@@ -28,6 +28,7 @@
 
   <ItemGroup>
     <None Remove="ClientApp\app\services\api.service.ts" />
+    <None Remove="ClientApp\app\services\busy.service.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,6 +38,7 @@
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\app\services\api.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\services\busy.service.ts" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">

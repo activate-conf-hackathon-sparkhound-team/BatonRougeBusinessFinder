@@ -1,83 +1,73 @@
-<form (ngSubmit)="load()" #searchForm="ngForm">
-    <div class="row">
-        <div class="col-lg-offset-3 col-lg-6">
-            <div class="form-group">
+
+<div class="row">
+    <div class="col-lg-offset-3 col-lg-6">
+        <form (ngSubmit)="load()" #searchForm="ngForm">
+            <div class="form-group form-group-lg">
                 <div class="input-group">
                     <input type="text" name="searchText" [(ngModel)]="searchText" class="form-control" placeholder="Search for businesses..." />
                     <span class="input-group-btn">
-                        <button (click)="load()" class="btn btn-primary" type="button">Search</button>
+                        <button (click)="load()" class="btn btn-primary btn-lg" type="button">Search</button>
                     </span>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
-</form>
-
-<span>
-    <div style="display:inline-block;">
-        <nav aria-label="Page navigation">
-            <ul class="pagination pagination-sm">
-                <li>
-                    <a href="#" title="Previous" aria-label="Previous" (click)="previous()">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                <li><a href="#" title="Current" aria-label="Current">{{pageNumber}}</a></li>
-                <li>
-                    <a href="#" title="Next" aria-label="Next" (click)="next()">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-    </div>
-
-    <div class="totalCount">{{totalCount}} businesses</div>
-</span>
-
-<div class="panel panel-default">
-    <table class="table" *ngIf="registeredBusinesses">
-        <thead>
-            <tr>
-                <th></th>
-                <th>Account</th>
-                <th>Name</th>
-                <th>Location</th>
-                <th>Contact</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let b of registeredBusinesses">
-                <th>
-                    <button type="button" class="btn btn-primary btn-sm">Info</button>
-                </th>
-                <td>{{ b.accountNumber }}</td>
-                <td>{{ b.accountName }}</td>
-                <td>{{ b.accountLocation }}</td>
-                <td>{{ b.contactPerson }}</td>
-            </tr>
-        </tbody>
-    </table>
 </div>
 
-<span>
-    <div style="display:inline-block;">
-        <nav aria-label="Page navigation">
-            <ul class="pagination pagination-sm">
-                <li>
-                    <a href="#" title="Previous" aria-label="Previous" (click)="previous()">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                <li><a href="#" title="Current" aria-label="Current">{{pageNumber}}</a></li>
-                <li>
-                    <a href="#" title="Next" aria-label="Next" (click)="next()">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="panel-title">
+            {{totalCount}} results
+            (showing {{startingNumber}} to {{endingNumber}})
+        </div>
     </div>
-
-    <div class="totalCount">{{totalCount}} businesses</div>
-</span>
+    <!--<div class="panel-heading">heading</div>
+    <div class="panel-body">
+    </div>
+    <div class="panel-footer">footer</div>-->
+    <div class="table-responsive">
+        <table class="table table-condensed table-striped table-hover" *ngIf="registeredBusinesses">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Account</th>
+                    <th>Name</th>
+                    <th>Location</th>
+                    <th>Contact</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let b of registeredBusinesses">
+                    <th>
+                        <button type="button" class="btn btn-primary btn-sm">Info</button>
+                    </th>
+                    <td>{{ b.accountNumber }}</td>
+                    <td>{{ b.accountName }}</td>
+                    <td>{{ b.accountLocation }}</td>
+                    <td>{{ b.contactPerson }}</td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div style="display:inline-block;">
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination pagination-sm">
+                                    <li [ngClass]="{'disabled': !isPreviousAllowed}">
+                                        <a href="#" title="Previous" aria-label="Previous" (click)="previous()">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                    <li><a href="#" title="Current" aria-label="Current">{{pageNumber}}</a></li>
+                                    <li [ngClass]="{'disabled': !isNextAllowed}">
+                                        <a href="#" title="Next" aria-label="Next" (click)="next()">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -21,6 +21,8 @@ const nonTreeShakableModules = [
     'es6-shim',
     'event-source-polyfill',
     'jquery',
+    'ng-busy',
+    'ng-busy/src/style/busy.css',
 ];
 const allModules = treeShakableModules.concat(nonTreeShakableModules);
 
