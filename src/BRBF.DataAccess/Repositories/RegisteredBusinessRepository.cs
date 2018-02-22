@@ -1,4 +1,4 @@
-﻿using BRBF.Core.Business.Search;
+﻿using BRBF.Core.Business.RegisteredBusiness;
 using BRBF.Core.Framework;
 using System;
 using System.Collections.Generic;
@@ -8,11 +8,49 @@ using System.Threading.Tasks;
 
 namespace BRBF.DataAccess.Repositories
 {
-    public class SearchRepository : BaseRepository, ISearchRepository
+    public class RegisteredBusinessRepository : BaseRepository, IRegisteredBusinessRepository
     {
-        public SearchRepository(BatonRougeBusinessFinderDbContext context) 
+        public RegisteredBusinessRepository(BatonRougeBusinessFinderDbContext context) 
             : base(context)
         {
+        }
+
+        public async Task<RegisteredBusinessDto> GetRegisteredBusinessByAccountNumber(string accountNumber)
+        {
+            accountNumber = accountNumber?.Trim();
+            var entity = await Context.RegisteredBusinesses.ToAsyncEnumerable().SingleOrDefault(b => b.AccountNumber == accountNumber);
+            var dto = new RegisteredBusinessDto(
+                entity.AccountNumber,
+                entity.AccountName,
+                entity.LegalName,
+                entity.AccountLocationCode,
+                entity.AccountLocation,
+                entity.ContactPerson,
+                entity.BusinessOpenDate,
+                entity.BusinessStatus,
+                entity.BusinessCloseDate,
+                entity.OwnershipType,
+                entity.AccountTypeCode,
+                entity.AccountType,
+                entity.NAICSCode,
+                entity.NAICSCategory,
+                entity.NAICSGroup,
+                entity.ABCStatusCode,
+                entity.ABCStatus,
+                entity.ConsolidatedFiler,
+                entity.MailingAddressLine1,
+                entity.MailingAddressLine2,
+                entity.MailingAddressCity,
+                entity.MailingAddressState,
+                entity.MailingAddressZipCode,
+                entity.PhysicalAddressLine1,
+                entity.PhysicalAddressLine2,
+                entity.PhysicalAddressCity,
+                entity.PhysicalAddressState,
+                entity.PhysicalAddressZipCode,
+                entity.Geolocation
+                );
+            return dto;
         }
 
         public async Task<PagedResponseDto<RegisteredBusinessDto>> SearchRegisteredBusinesses(PagedRequestDto<string> searchText)
@@ -24,16 +62,16 @@ namespace BRBF.DataAccess.Repositories
             {
                 searchText = new PagedRequestDto<string>()
                 {
-                    Data = "",
+                    RequestData = "",
                     PageNumber = defaultPageNumber,
                     PageSize = defaultPageSize,
                 };
             }
             else
             {
-                if (string.IsNullOrWhiteSpace(searchText.Data))
+                if (string.IsNullOrWhiteSpace(searchText.RequestData))
                 {
-                    searchText.Data = "";
+                    searchText.RequestData = "";
                 }
             }
 
@@ -42,8 +80,8 @@ namespace BRBF.DataAccess.Repositories
 
             var query = (
                 from rb in Context.RegisteredBusinesses
-                where rb.AccountName.Contains(searchText.Data)
-                    || rb.LegalName.Contains(searchText.Data)
+                where rb.AccountName.Contains(searchText.RequestData)
+                    || rb.LegalName.Contains(searchText.RequestData)
                 select rb
                 );
             var totalCount = await query.ToAsyncEnumerable().Count();

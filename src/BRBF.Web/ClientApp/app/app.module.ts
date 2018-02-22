@@ -13,6 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './components/app/app.component';
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
 import { HomeComponent } from './components/home/home.component';
+import { RegisteredBusinessComponent } from './components/registered-business/registered-business.component';
 import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { CounterComponent } from './components/counter/counter.component';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
@@ -27,6 +28,7 @@ import { ApiService } from './services/api.service';
         CounterComponent,
         FetchDataComponent,
         HomeComponent,
+        RegisteredBusinessComponent,
         PrivacyPolicyComponent,
         TermsAndConditionsComponent
     ],
@@ -41,11 +43,12 @@ import { ApiService } from './services/api.service';
         RouterModule.forRoot([
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'home', component: HomeComponent },
+            { path: 'registered-business/:accountNumber', component: RegisteredBusinessComponent },
             { path: 'counter', component: CounterComponent },
             { path: 'fetch-data', component: FetchDataComponent },
             { path: 'privacy-policy', component: PrivacyPolicyComponent },
             { path: 'terms-and-conditions', component: TermsAndConditionsComponent },
-            { path: '**', redirectTo: 'home' }
+            { path: '**', redirectTo: 'home' },
         ])
     ],
     providers: [

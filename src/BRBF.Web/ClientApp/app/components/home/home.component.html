@@ -30,21 +30,21 @@
             <thead>
                 <tr>
                     <th></th>
-                    <th>Account</th>
                     <th>Name</th>
-                    <th>Location</th>
-                    <th>Contact</th>
+                    <th>Category</th>
+                    <th>Open Date</th>
+                    <th>Close Date</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let b of registeredBusinesses">
                     <th>
-                        <button type="button" class="btn btn-primary btn-sm">Info</button>
+                        <a class="btn btn-primary btn-sm" href="/registered-business/{{ b.accountNumber }}">Info</a>
                     </th>
-                    <td>{{ b.accountNumber }}</td>
                     <td>{{ b.accountName }}</td>
-                    <td>{{ b.accountLocation }}</td>
-                    <td>{{ b.contactPerson }}</td>
+                    <td>{{ b.naicsCategory }}</td>
+                    <td>{{ b.businessOpenDate | date }}</td>
+                    <td>{{ b.businessCloseDate | date }}</td>
                 </tr>
                 <tr>
                     <td colspan="5">

@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BRBF.Core.Business.Search
+namespace BRBF.Core.Business.RegisteredBusiness
 {
-    public interface ISearchRepository
+    public interface IRegisteredBusinessRepository
     {
         Task<PagedResponseDto<RegisteredBusinessDto>> SearchRegisteredBusinesses(PagedRequestDto<string> searchText);
+        Task<RegisteredBusinessDto> GetRegisteredBusinessByAccountNumber(string accountNumber);
     }
 }

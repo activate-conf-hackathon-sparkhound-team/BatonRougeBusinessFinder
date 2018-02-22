@@ -27,6 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\app\components\registered-business\registered-business.component.ts" />
     <None Remove="ClientApp\app\services\api.service.ts" />
     <None Remove="ClientApp\app\services\busy.service.ts" />
   </ItemGroup>
@@ -37,6 +38,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\app\components\registered-business\registered-business.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\services\api.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\services\busy.service.ts" />
   </ItemGroup>

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace BRBF.Core.Business.Search
+namespace BRBF.Core.Business.RegisteredBusiness
 {
     public class RegisteredBusinessDto : IDto
     {

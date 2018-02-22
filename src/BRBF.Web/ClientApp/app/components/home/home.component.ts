@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
-import { ApiService, RegisteredBusiness, searchRegisteredBusinessesQueryResponse } from '../../services/api.service';
+import { ApiService, RegisteredBusiness, SearchRegisteredBusinessesQueryResponse } from '../../services/api.service';
 
 @Component({
     selector: 'home',
@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit {
         return Math.min(this.startingNumber + this.pageSize - 1, this.totalCount);
     }
 
-    ngOnInit(): void {
+    ngOnInit() {
         this.activatedRoute.queryParams.subscribe((params: Params) => {
             this.searchText = params['searchText'] || "";
             this.pageNumber = params['pageNumber'] || 1;
@@ -61,7 +61,7 @@ export class HomeComponent implements OnInit {
             .then(x => this.loadSuccess(x));
     }
 
-    loadSuccess(x: searchRegisteredBusinessesQueryResponse) {
+    loadSuccess(x: SearchRegisteredBusinessesQueryResponse) {
         this.pageNumber = x.pageNumber;
         this.pageSize = x.pageSize;
         this.totalCount = x.totalCount;

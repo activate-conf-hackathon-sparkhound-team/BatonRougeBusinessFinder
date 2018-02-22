@@ -1,0 +1,192 @@
+﻿
+<div class="row">
+    <div class="col-sm-12">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <h4>{{registeredBusiness?.accountName}}</h4>
+                </div>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">Account Number</label>
+                                <div class="col-xs-9">
+                                    <p class="form-control-static">
+                                        {{registeredBusiness?.accountNumber}}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">Legal Name</label>
+                                <div class="col-xs-9">
+                                    <p class="form-control-static">
+                                        {{registeredBusiness?.legalName}}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">Location Code</label>
+                                <div class="col-xs-9">
+                                    <p class="form-control-static">
+                                        {{registeredBusiness?.accountLocationCode}}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">Account Location</label>
+                                <div class="col-xs-9">
+                                    <p class="form-control-static">
+                                        {{registeredBusiness?.accountLocation}}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">Contact Person</label>
+                                <div class="col-xs-9">
+                                    <p class="form-control-static">
+                                        {{registeredBusiness?.contactPerson}}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">Status</label>
+                                <div class="col-xs-9">
+                                    <p class="form-control-static">
+                                        {{ registeredBusiness?.businessStatus == 'O' ? "Open" : "Closed" }}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">Open Date</label>
+                                <div class="col-xs-9">
+                                    <p class="form-control-static">
+                                        {{registeredBusiness?.businessOpenDate | date}}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">Close Date</label>
+                                <div class="col-xs-9">
+                                    <p class="form-control-static">
+                                        {{registeredBusiness?.businessCloseDate | date}}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">Ownership Type</label>
+                                <div class="col-xs-9">
+                                    <p class="form-control-static">
+                                        {{registeredBusiness?.ownershipType}}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">Account Type Code</label>
+                                <div class="col-xs-9">
+                                    <p class="form-control-static">
+                                        {{registeredBusiness?.accountTypeCode}}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">Account Type</label>
+                            <div class="col-xs-9">
+                                <p class="form-control-static">
+                                    {{registeredBusiness?.accountType}}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">NAICS Category</label>
+                            <div class="col-xs-9">
+                                <p class="form-control-static">
+                                    {{registeredBusiness?.naicsCategory}}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">NAICS Group</label>
+                            <div class="col-xs-9">
+                                <p class="form-control-static">
+                                    {{registeredBusiness?.naicsGroup}}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">NAICS Code</label>
+                            <div class="col-xs-9">
+                                <p class="form-control-static">
+                                    {{registeredBusiness?.naicsCode}}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">Serves Alcohol</label>
+                            <div class="col-xs-9">
+                                <p class="form-control-static">
+                                    {{servesAlcohol}}
+                                    ({{registeredBusiness?.abcStatusCode}})
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">Consolidated Filer</label>
+                            <div class="col-xs-9">
+                                <p class="form-control-static">
+                                    {{registeredBusiness?.consolidatedFiler ? "Yes" : "No"}}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">Mailing Address</label>
+                            <div class="col-xs-9">
+                                <p class="form-control-static">
+                                    {{registeredBusiness?.mailingAddressLine1}}
+                                    <br *ngIf="registeredBusiness?.mailingAddressLine1" />
+                                    {{registeredBusiness?.mailingAddressLine2}}
+                                    <br *ngIf="registeredBusiness?.mailingAddressLine2" />
+                                    {{registeredBusiness?.mailingAddressCity}}, {{registeredBusiness?.mailingAddressState}} {{registeredBusiness?.mailingAddressZipCode}}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">Physical Address</label>
+                            <div class="col-xs-9">
+                                <p class="form-control-static">
+                                    {{registeredBusiness?.physicalAddressLine1}}
+                                    <br *ngIf="registeredBusiness?.physicalAddressLine1" />
+                                    {{registeredBusiness?.physicalAddressLine2}}
+                                    <br *ngIf="registeredBusiness?.physicalAddressLine2" />
+                                    {{registeredBusiness?.physicalAddressCity}}, {{registeredBusiness?.physicalAddressState}} {{registeredBusiness?.physicalAddressZipCode}}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">Geolocation</label>
+                            <div class="col-xs-9">
+                                <p class="form-control-static">
+                                    {{registeredBusiness?.geolocation}}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <!-- google map -->
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </form>
+            </div>
+            <div class="panel-footer">
+                <button class="btn btn-primary">Notify me of changes to this business</button>
+            </div>
+        </div>
+    </div>
+</div>

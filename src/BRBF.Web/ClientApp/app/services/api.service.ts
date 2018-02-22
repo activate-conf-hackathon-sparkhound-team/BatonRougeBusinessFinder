@@ -43,8 +43,13 @@ export class ApiService {
         return response;
     }
 
-    async searchRegisteredBusinesses(request: searchRegisteredBusinessesQueryRequest) {
-        let response = await this.get<searchRegisteredBusinessesQueryRequest, searchRegisteredBusinessesQueryResponse>('SearchRegisteredBusinessesQueryRequest', request);
+    async searchRegisteredBusinesses(request: SearchRegisteredBusinessesQueryRequest) {
+        let response = await this.get<SearchRegisteredBusinessesQueryRequest, SearchRegisteredBusinessesQueryResponse>('SearchRegisteredBusinessesQueryRequest', request);
+        return response;
+    }
+
+    async getRegisteredBusiness(request: GetRegisteredBusinessQueryRequest) {
+        let response = await this.get<GetRegisteredBusinessQueryRequest, RegisteredBusiness>("GetRegisteredBusinessQueryRequest", request);
         return response;
     }
 
@@ -56,12 +61,12 @@ export interface Command<TResponse> { }
 
 export interface GetSampleDataQueryRequest extends Query<WeatherForecast[]> {}
 
-export interface searchRegisteredBusinessesQueryRequest extends Command<searchRegisteredBusinessesQueryResponse> {
+export interface SearchRegisteredBusinessesQueryRequest extends Command<SearchRegisteredBusinessesQueryResponse> {
     data: string,
     pageSize: number,
     pageNumber: number,
 }
-export interface searchRegisteredBusinessesQueryResponse {
+export interface SearchRegisteredBusinessesQueryResponse {
     pageSize: number,
     pageNumber: number,
     totalCount: number,
@@ -76,7 +81,40 @@ export interface WeatherForecast {
 }
 
 export interface RegisteredBusiness {
+    id: number;
+    accountNumber: string;
+    accountName: string;
+    legalName: string;
+    accountLocationCode: string;
+    accountLocation: string;
+    contactPerson: string;
+    businessOpenDate: string;
+    businessStatus: string;
+    businessCloseDate: string;
+    ownershipType: string;
+    accountTypeCode: string;
+    accountType: string;
+    naicsCode: string;
+    naicsCategory: string;
+    naicsGroup: string;
+    abcStatusCode: string;
+    abcStatus: string;
+    consolidatedFiler?: boolean;
+    mailingAddressLine1: string;
+    mailingAddressLine2: string;
+    mailingAddressCity: string;
+    mailingAddressState: string;
+    mailingAddressZipCode: string;
+    physicalAddressLine1: string;
+    physicalAddressLine2: string;
+    physicalAddressCity: string
+    physicalAddressState: string;
+    physicalAddressZipCode: string;
+    geolocation: string;
+}
 
+export interface GetRegisteredBusinessQueryRequest extends Query<RegisteredBusiness> {
+    accountNumber: string;
 }
 
 function jsonToQueryString(json: any) {

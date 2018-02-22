@@ -6,24 +6,24 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace BRBF.Core.Business.Search
+namespace BRBF.Core.Business.RegisteredBusiness
 {
     public class SearchRegisteredBusinessesQueryHandler
         : IQueryHandler<SearchRegisteredBusinessesQueryRequest, PagedResponseDto<RegisteredBusinessDto>>
     {
-        public SearchRegisteredBusinessesQueryHandler(ISearchRepository searchRepository)
+        public SearchRegisteredBusinessesQueryHandler(IRegisteredBusinessRepository registeredBusinessRepository)
         {
-            SearchRepository = searchRepository;
+            RegisteredBusinessRepository = registeredBusinessRepository;
         }
 
-        public ISearchRepository SearchRepository { get; }
+        public IRegisteredBusinessRepository RegisteredBusinessRepository { get; }
 
         public async Task<PagedResponseDto<RegisteredBusinessDto>> Handle(
             SearchRegisteredBusinessesQueryRequest request, 
             CancellationToken cancellationToken
             )
         {
-            var result = await SearchRepository.SearchRegisteredBusinesses(request);
+            var result = await RegisteredBusinessRepository.SearchRegisteredBusinesses(request);
             return result;
         }
     }

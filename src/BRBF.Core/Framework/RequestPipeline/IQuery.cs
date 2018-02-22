@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BRBF.Core.Framework.RequestPipeline
 {
-    public interface IQuery : IRequest
+    public interface IQuery : IRequest, IDto
     {
     }
 }
