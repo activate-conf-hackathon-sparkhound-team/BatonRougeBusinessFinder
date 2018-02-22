@@ -32,3 +32,7 @@
 	[Geolocation] VARCHAR(500) NULL, 
     [Revision] ROWVERSION NULL,
 )
+GO
+
+CREATE INDEX [IX_RegisteredBusiness_AccountNumber] ON [dbo].[RegisteredBusiness] ([AccountNumber])
+GO

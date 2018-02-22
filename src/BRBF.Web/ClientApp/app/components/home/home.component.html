@@ -29,7 +29,6 @@
         <table class="table table-condensed table-striped table-hover" *ngIf="registeredBusinesses">
             <thead>
                 <tr>
-                    <th></th>
                     <th>Name</th>
                     <th>Category</th>
                     <th>Open Date</th>
@@ -39,9 +38,10 @@
             <tbody>
                 <tr *ngFor="let b of registeredBusinesses">
                     <th>
-                        <a class="btn btn-primary btn-sm" href="/registered-business/{{ b.accountNumber }}">Info</a>
+                        <a [routerLink]="['/registered-business', b.accountNumber]">
+                            {{ b.accountName }}
+                        </a>
                     </th>
-                    <td>{{ b.accountName }}</td>
                     <td>{{ b.naicsCategory }}</td>
                     <td>{{ b.businessOpenDate | date }}</td>
                     <td>{{ b.businessCloseDate | date }}</td>
