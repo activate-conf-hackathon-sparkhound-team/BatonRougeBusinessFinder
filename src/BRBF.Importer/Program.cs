@@ -1,5 +1,6 @@
 ﻿using BRBF.Core;
 using BRBF.Core.Business.Import;
+using BRBF.Core.Business.Notifications;
 using BRBF.DataAccess;
 using BRBF.DataAccess.Services;
 using Microsoft.Azure.WebJobs;
@@ -50,6 +51,7 @@ namespace BRBF.Importer
             serviceCollection.Configure<AppSettings>(configuration);
             serviceCollection.AddScoped<WebJobsMethods, WebJobsMethods>();
             serviceCollection.AddScoped<IImportDataService, ImportDataService>();
+            serviceCollection.AddScoped<IEmailService, EmailService>();
 
             serviceCollection
                 .AddDbContext<BatonRougeBusinessFinderDbContext>(options => 

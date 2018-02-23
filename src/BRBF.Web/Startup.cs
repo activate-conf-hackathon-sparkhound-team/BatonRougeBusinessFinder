@@ -4,12 +4,14 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using BRBF.Core;
+using BRBF.Core.Business.Notifications;
 using BRBF.Core.Business.RegisteredBusiness;
 using BRBF.Core.Framework;
 using BRBF.Core.Framework.RequestPipeline;
 using BRBF.Core.Framework.RequestPipeline.Behaviors;
 using BRBF.DataAccess;
 using BRBF.DataAccess.Repositories;
+using BRBF.DataAccess.Services;
 using MediatR;
 using MediatR.Pipeline;
 using Microsoft.AspNetCore.Builder;
@@ -60,6 +62,7 @@ namespace src
             services.AddTransient<IRequestRunner, RequestRunner>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddTransient<IRegisteredBusinessRepository, RegisteredBusinessRepository>();
+            services.AddScoped<IEmailService, EmailService>();
 
             services.Configure<AppSettings>(Configuration);
             services.AddSingleton<IConfiguration>(Configuration);

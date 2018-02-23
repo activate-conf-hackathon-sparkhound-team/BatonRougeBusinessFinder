@@ -1,4 +1,5 @@
 ﻿using BRBF.Core.Business.Import;
+using BRBF.Core.Business.Notifications;
 using BRBF.Core.Entities;
 using BRBF.DataAccess.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -15,10 +16,13 @@ namespace BRBF.DataAccess.Services
 {
     public class ImportDataService : BaseRepository, IImportDataService
     {
-        public ImportDataService(BatonRougeBusinessFinderDbContext context)
+        public ImportDataService(BatonRougeBusinessFinderDbContext context, IEmailService emailService)
             : base(context)
         {
+            EmailService = emailService;
         }
+
+        public IEmailService EmailService { get; }
 
         public async Task<bool> Import(CancellationToken cancellationToken = default(CancellationToken))
         {
