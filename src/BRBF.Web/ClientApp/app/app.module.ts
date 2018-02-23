@@ -15,7 +15,7 @@ import { NavMenuComponent } from './components/navmenu/navmenu.component';
 import { HomeComponent } from './components/home/home.component';
 import { RegisteredBusinessComponent } from './components/registered-business/registered-business.component';
 import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
-import { CounterComponent } from './components/counter/counter.component';
+import { AboutComponent } from './components/about/about.component';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 import { TermsAndConditionsComponent } from './components/terms-and-conditions/terms-and-conditions.component';
 
@@ -25,7 +25,7 @@ import { ApiService } from './services/api.service';
     declarations: [
         AppComponent,
         NavMenuComponent,
-        CounterComponent,
+        AboutComponent ,
         FetchDataComponent,
         HomeComponent,
         RegisteredBusinessComponent,
@@ -44,7 +44,7 @@ import { ApiService } from './services/api.service';
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'home', component: HomeComponent },
             { path: 'registered-business/:accountNumber', component: RegisteredBusinessComponent },
-            { path: 'counter', component: CounterComponent },
+            { path: 'about', component: AboutComponent  },
             { path: 'fetch-data', component: FetchDataComponent },
             { path: 'privacy-policy', component: PrivacyPolicyComponent },
             { path: 'terms-and-conditions', component: TermsAndConditionsComponent },
