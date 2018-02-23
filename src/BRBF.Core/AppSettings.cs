@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BRBF.Importer
+namespace BRBF.Core
 {
     public class AppSettings
     {
         public AzureWebJobSettings AzureWebJob { get; set; }
+        public bool? UseFullTextSearch { get; set; }
 
         public class AzureWebJobSettings
         {

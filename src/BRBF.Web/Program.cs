@@ -30,7 +30,9 @@ namespace src
             var env = hostingContext.HostingEnvironment;
 
             config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true)
+                .AddEnvironmentVariables()
+                .AddCommandLine(args);
 
             if (env.IsDevelopment())
             {
@@ -39,13 +41,6 @@ namespace src
                 {
                     config.AddUserSecrets(appAssembly, optional: true);
                 }
-            }
-
-            config.AddEnvironmentVariables();
-
-            if (args != null)
-            {
-                config.AddCommandLine(args);
             }
         }
 

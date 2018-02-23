@@ -6,6 +6,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="..\BRBF.Web\appsettings.Development.json" Link="appsettings.Development.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\BRBF.Web\appsettings.json" Link="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.Azure.WebJobs" Version="3.0.0-beta4" />
     <PackageReference Include="Microsoft.Azure.WebJobs.Extensions" Version="3.0.0-beta4" />
     <PackageReference Include="Microsoft.Data.Edm" Version="5.8.3" />
@@ -25,12 +34,6 @@
   <ItemGroup>
     <ProjectReference Include="..\BRBF.Core\BRBF.Core.csproj" />
     <ProjectReference Include="..\BRBF.DataAccess\BRBF.DataAccess.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="appsettings.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
 </Project>

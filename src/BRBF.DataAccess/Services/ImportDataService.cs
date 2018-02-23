@@ -73,6 +73,11 @@ namespace BRBF.DataAccess.Services
                 entity.PhysicalAddressZipCode = row.PhysicalAddressZipCode;                
             }
 
+            var allEntries = Context.ChangeTracker.Entries<RegisteredBusiness>();
+            var added = allEntries.Where(x => x.State == EntityState.Added);
+            var modified = allEntries.Where(x => x.State == EntityState.Modified);
+            var deleted = allEntries.Where(x => x.State == EntityState.Deleted);
+
             var itemsChanged = await Context.SaveChangesAsync(cancellationToken);
 
             return true;

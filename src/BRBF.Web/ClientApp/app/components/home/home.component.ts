@@ -53,7 +53,7 @@ export class HomeComponent implements OnInit {
         });
 
         let request = {
-            data: this.searchText,
+            requestData: this.searchText,
             pageNumber: this.pageNumber,
             pageSize: this.pageSize,
         };

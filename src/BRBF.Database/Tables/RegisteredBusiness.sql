@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[RegisteredBusiness]
 (
-	[Id] INT NOT NULL PRIMARY KEY IDENTITY (1, 1),
+	[Id] INT NOT NULL IDENTITY (1, 1),
 	[AccountNumber] VARCHAR(250) NULL,
 	[AccountName] VARCHAR(250) NULL,
 	[LegalName] VARCHAR(250) NULL,
@@ -31,8 +31,41 @@
 	[PhysicalAddressZipCode] VARCHAR(250) NULL,
 	[Geolocation] VARCHAR(500) NULL, 
     [Revision] ROWVERSION NULL,
+	CONSTRAINT [PK_RegisteredBusiness_Id] PRIMARY KEY CLUSTERED ([Id] ASC),
 )
 GO
 
 CREATE INDEX [IX_RegisteredBusiness_AccountNumber] ON [dbo].[RegisteredBusiness] ([AccountNumber])
+GO
+
+CREATE FULLTEXT CATALOG RegisteredBusinessCatalog AS DEFAULT
+GO
+CREATE FULLTEXT INDEX ON [dbo].[RegisteredBusiness](
+	[AccountNumber],
+	[AccountName],
+	[LegalName],
+	[AccountLocationCode],
+	[AccountLocation],
+	[ContactPerson],
+	[BusinessStatus],
+	[OwnershipType],
+	[AccountTypeCode],
+	[AccountType],
+	[NAICSCode],
+	[NAICSCategory],
+	[NAICSGroup],
+	[ABCStatusCode],
+	[ABCStatus],
+	[MailingAddressLine1],
+	[MailingAddressLine2],
+	[MailingAddressCity],
+	[MailingAddressState],
+	[MailingAddressZipCode],
+	[PhysicalAddressLine1],
+	[PhysicalAddressLine2],
+	[PhysicalAddressCity],
+	[PhysicalAddressState],
+	[PhysicalAddressZipCode],
+	[Geolocation]
+) KEY INDEX [PK_RegisteredBusiness_Id]
 GO

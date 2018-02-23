@@ -62,9 +62,9 @@ export interface Command<TResponse> { }
 export interface GetSampleDataQueryRequest extends Query<WeatherForecast[]> {}
 
 export interface SearchRegisteredBusinessesQueryRequest extends Command<SearchRegisteredBusinessesQueryResponse> {
-    data: string,
     pageSize: number,
     pageNumber: number,
+    requestData: string,
 }
 export interface SearchRegisteredBusinessesQueryResponse {
     pageSize: number,

@@ -1,5 +1,9 @@
-﻿using BRBF.Core.Business.RegisteredBusiness;
+﻿using BRBF.Core;
+using BRBF.Core.Business.RegisteredBusiness;
+using BRBF.Core.Entities;
 using BRBF.Core.Framework;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,10 +14,13 @@ namespace BRBF.DataAccess.Repositories
 {
     public class RegisteredBusinessRepository : BaseRepository, IRegisteredBusinessRepository
     {
-        public RegisteredBusinessRepository(BatonRougeBusinessFinderDbContext context) 
+        public RegisteredBusinessRepository(BatonRougeBusinessFinderDbContext context, IOptions<AppSettings> options) 
             : base(context)
         {
+            AppSettings = options.Value;
         }
+
+        public AppSettings AppSettings { get; }
 
         public async Task<RegisteredBusinessDto> GetRegisteredBusinessByAccountNumber(string accountNumber)
         {
@@ -78,12 +85,31 @@ namespace BRBF.DataAccess.Repositories
             int pageNumber = searchText.PageNumber ?? defaultPageNumber;
             int pageSize = searchText.PageSize ?? defaultPageSize;
 
-            var query = (
-                from rb in Context.RegisteredBusinesses
-                where rb.AccountName.Contains(searchText.RequestData)
+            var tokens = searchText.RequestData.Split(" ").ToList();
+            IQueryable<RegisteredBusiness> query = Context.RegisteredBusinesses;
+            if (AppSettings.UseFullTextSearch ?? false)
+            {
+                var containsClause = string.Join(" OR ", tokens);
+                if (!string.IsNullOrEmpty(containsClause))
+                {
+                    query = query.FromSql("select * from [RegisteredBusiness] where CONTAINS(([AccountNumber],[AccountName],[LegalName],[AccountLocationCode],[AccountLocation],[ContactPerson],[BusinessStatus],[OwnershipType],[AccountTypeCode],[AccountType],[NAICSCode],[NAICSCategory],[NAICSGroup],[ABCStatusCode],[ABCStatus],[MailingAddressLine1],[MailingAddressLine2],[MailingAddressCity],[MailingAddressState],[MailingAddressZipCode],[PhysicalAddressLine1],[PhysicalAddressLine2],[PhysicalAddressCity],[PhysicalAddressState],[PhysicalAddressZipCode],[Geolocation]), {0})", containsClause);
+                }
+            }
+            else
+            {
+                query = query.Where(rb =>
+                    rb.AccountNumber.Contains(searchText.RequestData)
+                    || rb.AccountName.Contains(searchText.RequestData)
                     || rb.LegalName.Contains(searchText.RequestData)
-                select rb
-                );
+                    || rb.AccountLocation.Contains(searchText.RequestData)
+                    || rb.ContactPerson.Contains(searchText.RequestData)
+                    || rb.NAICSCategory.Contains(searchText.RequestData)
+                    || rb.NAICSGroup.Contains(searchText.RequestData)
+                    || rb.ABCStatus.Contains(searchText.RequestData)
+                    || rb.MailingAddressLine2.Contains(searchText.RequestData)
+                    || rb.PhysicalAddressLine2.Contains(searchText.RequestData)
+                    );
+            }
             var totalCount = await query.ToAsyncEnumerable().Count();
 
             // Ensure Realistic Page Parameters.

@@ -1,4 +1,5 @@
-﻿using BRBF.Core.Business.Import;
+﻿using BRBF.Core;
+using BRBF.Core.Business.Import;
 using BRBF.DataAccess;
 using BRBF.DataAccess.Services;
 using Microsoft.Azure.WebJobs;
@@ -30,10 +31,13 @@ namespace BRBF.Importer
 
         private static void ConfigureServices(string[] args, IServiceCollection serviceCollection)
         {
+            var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+
             // Setup your configuration:
             var configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
+                //.SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{environmentName}.json", optional: true, reloadOnChange: true)
                 .AddEnvironmentVariables()
                 .AddCommandLine(args)
                 .Build();
