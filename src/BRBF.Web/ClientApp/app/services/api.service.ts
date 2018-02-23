@@ -54,6 +54,10 @@ export class ApiService {
     }
 
     // Commands
+    async addNotificationRegistration(request: AddNotificationRegistrationCommandRequest) {
+        let response = await this.post<AddNotificationRegistrationCommandRequest, boolean>("AddNotificationRegistrationCommandRequest", request);
+        return response;
+    }
 }
 
 export interface Query<TResponse> { }
@@ -115,6 +119,14 @@ export interface RegisteredBusiness {
 
 export interface GetRegisteredBusinessQueryRequest extends Query<RegisteredBusiness> {
     accountNumber: string;
+}
+
+export interface AddNotificationRegistrationCommandRequest extends Command<boolean> {
+    email: string;
+    searchText: string;
+    notifyOnOpen: boolean;
+    notifyOnClose: boolean;
+    notifyOnModified: boolean;
 }
 
 function jsonToQueryString(json: any) {

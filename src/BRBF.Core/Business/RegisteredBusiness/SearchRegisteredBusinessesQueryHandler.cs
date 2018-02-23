@@ -23,7 +23,7 @@ namespace BRBF.Core.Business.RegisteredBusiness
             CancellationToken cancellationToken
             )
         {
-            var result = await RegisteredBusinessRepository.SearchRegisteredBusinesses(request);
+            var result = await RegisteredBusinessRepository.SearchRegisteredBusinessesAsync(request);
             return result;
         }
     }

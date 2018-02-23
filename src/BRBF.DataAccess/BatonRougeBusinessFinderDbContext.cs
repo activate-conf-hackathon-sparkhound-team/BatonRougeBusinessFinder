@@ -17,5 +17,6 @@ namespace BRBF.DataAccess
         }
 
         public DbSet<RegisteredBusiness> RegisteredBusinesses { get; set; }
+        public DbSet<NotificationRegistration> NotificationRegistrations { get; set; }
     }
 }

@@ -38,7 +38,7 @@ export class HomeComponent implements OnInit {
 
         //console.log(this.location.replaceState();
 
-        this.load();
+        setTimeout(() => this.load());
     }
 
     load() {
@@ -59,6 +59,8 @@ export class HomeComponent implements OnInit {
         };
         this.api.searchRegisteredBusinesses(request)
             .then(x => this.loadSuccess(x));
+
+        return false; // prevent reload of page.
     }
 
     loadSuccess(x: SearchRegisteredBusinessesQueryResponse) {
@@ -67,6 +69,29 @@ export class HomeComponent implements OnInit {
         this.totalCount = x.totalCount;
         this.registeredBusinesses = x.data;
     }
+
+    register() {
+        let request = {
+            email: this.email,
+            searchText: this.searchText,
+            notifyOnOpen: this.notifyOnOpen,
+            notifyOnClose: this.notifyOnClose,
+            notifyOnModified: this.notifyOnModified,
+        };
+        this.api.addNotificationRegistration(request)
+            .then(x => this.registerSuccess(x));
+
+        return false; // prevent reload of page.
+    }
+
+    registerSuccess(x: boolean) {
+        // TODO - show success message
+    }
+
+    email = "";
+    notifyOnOpen = true;
+    notifyOnClose = true;
+    notifyOnModified = true;
 
     get minPage() {
         return 1;

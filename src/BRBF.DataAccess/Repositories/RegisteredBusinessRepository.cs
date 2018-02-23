@@ -22,7 +22,7 @@ namespace BRBF.DataAccess.Repositories
 
         public AppSettings AppSettings { get; }
 
-        public async Task<RegisteredBusinessDto> GetRegisteredBusinessByAccountNumber(string accountNumber)
+        public async Task<RegisteredBusinessDto> GetRegisteredBusinessByAccountNumberAsync(string accountNumber)
         {
             accountNumber = accountNumber?.Trim();
             var entity = await Context.RegisteredBusinesses.ToAsyncEnumerable().SingleOrDefault(b => b.AccountNumber == accountNumber);
@@ -60,7 +60,7 @@ namespace BRBF.DataAccess.Repositories
             return dto;
         }
 
-        public async Task<PagedResponseDto<RegisteredBusinessDto>> SearchRegisteredBusinesses(PagedRequestDto<string> searchText)
+        public async Task<PagedResponseDto<RegisteredBusinessDto>> SearchRegisteredBusinessesAsync(PagedRequestDto<string> searchText)
         {
             const int defaultPageNumber = 1;
             const int defaultPageSize = 25;
@@ -82,14 +82,14 @@ namespace BRBF.DataAccess.Repositories
                 }
             }
 
-            int pageNumber = searchText.PageNumber ?? defaultPageNumber;
+            int pageNumberZeroBased = Math.Max((searchText.PageNumber ?? defaultPageNumber) - 1, 0);
             int pageSize = searchText.PageSize ?? defaultPageSize;
 
             var tokens = searchText.RequestData.Split(" ").ToList();
             IQueryable<RegisteredBusiness> query = Context.RegisteredBusinesses;
             if (AppSettings.UseFullTextSearch ?? false)
             {
-                var containsClause = string.Join(" OR ", tokens);
+                var containsClause = string.Join(" AND ", tokens);
                 if (!string.IsNullOrEmpty(containsClause))
                 {
                     query = query.FromSql("select * from [RegisteredBusiness] where CONTAINS(([AccountNumber],[AccountName],[LegalName],[AccountLocationCode],[AccountLocation],[ContactPerson],[BusinessStatus],[OwnershipType],[AccountTypeCode],[AccountType],[NAICSCode],[NAICSCategory],[NAICSGroup],[ABCStatusCode],[ABCStatus],[MailingAddressLine1],[MailingAddressLine2],[MailingAddressCity],[MailingAddressState],[MailingAddressZipCode],[PhysicalAddressLine1],[PhysicalAddressLine2],[PhysicalAddressCity],[PhysicalAddressState],[PhysicalAddressZipCode],[Geolocation]), {0})", containsClause);
@@ -113,17 +113,17 @@ namespace BRBF.DataAccess.Repositories
             var totalCount = await query.ToAsyncEnumerable().Count();
 
             // Ensure Realistic Page Parameters.
-            searchText.PageNumber = Math.Max(pageNumber, 0);
-            searchText.PageSize = Math.Max(pageSize, 1);
-            var itemsToSkip = pageNumber * pageSize;
+            pageSize = Math.Min(100, Math.Max(pageSize, 1));
+            var itemsToSkip = pageNumberZeroBased * pageSize;
             if (itemsToSkip >= totalCount)
             {
                 itemsToSkip = Math.Max(itemsToSkip - pageSize, 0);
+                pageNumberZeroBased = itemsToSkip / pageSize;
             }
 
             var list = await query
                 .Skip(itemsToSkip)
-                .Take(searchText?.PageSize ?? defaultPageSize)
+                .Take(pageSize)
                 .ToAsyncEnumerable()
                 .ToList();
             var data = list
@@ -160,7 +160,13 @@ namespace BRBF.DataAccess.Repositories
                     ))
                 .ToList();
 
-            return new PagedResponseDto<RegisteredBusinessDto>(pageSize, pageNumber, totalCount, data);
+            return new PagedResponseDto<RegisteredBusinessDto>(pageSize, pageNumberZeroBased+1, totalCount, data);
+        }
+
+        public async Task<IEnumerable<NotificationRegistration>> GetNotificationRegistrationsForEmailAsync(string email)
+        {
+            var result = await Context.NotificationRegistrations.Where(nr => nr.Email == email).ToListAsync();
+            return result;
         }
     }
 }
