@@ -7,6 +7,6 @@ namespace BRBF.Core.Business.Notifications
 {
     public interface IEmailService
     {
-        Task SendEmail(string toEmail, string subject, string body);
+        Task SendEmailAsync(string toEmail, string subject, string body);
     }
 }

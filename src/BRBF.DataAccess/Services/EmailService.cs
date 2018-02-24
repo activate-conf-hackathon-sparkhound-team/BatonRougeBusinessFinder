@@ -19,7 +19,7 @@ namespace BRBF.DataAccess.Services
 
         public AppSettings AppSettings { get; }
 
-        public async Task SendEmail(string toEmail, string subject, string body)
+        public async Task SendEmailAsync(string toEmail, string subject, string body)
         {
             var server = AppSettings.Smtp.Server ?? "localhost";
             var port = AppSettings.Smtp.Port ?? 587;
@@ -52,6 +52,7 @@ namespace BRBF.DataAccess.Services
             mailMessage.To.Add(toEmail);
             mailMessage.Subject = subject;
             mailMessage.Body = body;
+            mailMessage.IsBodyHtml = true;
             await client.SendMailAsync(mailMessage);
         }
     }

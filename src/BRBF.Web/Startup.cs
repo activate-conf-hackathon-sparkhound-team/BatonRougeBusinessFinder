@@ -63,6 +63,7 @@ namespace src
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddTransient<IRegisteredBusinessRepository, RegisteredBusinessRepository>();
             services.AddScoped<IEmailService, EmailService>();
+            services.AddScoped<ITextMessageService, TextMessageService>();
 
             services.Configure<AppSettings>(Configuration);
             services.AddSingleton<IConfiguration>(Configuration);

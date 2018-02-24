@@ -1,13 +1,16 @@
 ﻿using BRBF.Core;
 using BRBF.Core.Business.Import;
 using BRBF.Core.Business.Notifications;
+using BRBF.Core.Business.RegisteredBusiness;
 using BRBF.DataAccess;
+using BRBF.DataAccess.Repositories;
 using BRBF.DataAccess.Services;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using System;
 using System.IO;
 
@@ -52,10 +55,20 @@ namespace BRBF.Importer
             serviceCollection.AddScoped<WebJobsMethods, WebJobsMethods>();
             serviceCollection.AddScoped<IImportDataService, ImportDataService>();
             serviceCollection.AddScoped<IEmailService, EmailService>();
+            serviceCollection.AddScoped<ITextMessageService, TextMessageService>();
+            serviceCollection.AddScoped<IRegisteredBusinessRepository, RegisteredBusinessRepository>();
+            serviceCollection.AddLogging(logging => ConfigureLogging(logging, configuration));
 
             serviceCollection
                 .AddDbContext<BatonRougeBusinessFinderDbContext>(options => 
                     options.UseSqlServer(configuration.GetConnectionString("DbContext")));
+        }
+
+        protected static void ConfigureLogging(ILoggingBuilder logging, IConfiguration configuration)
+        {
+            logging.AddConfiguration(configuration.GetSection("Logging"));
+            logging.AddConsole();
+            logging.AddDebug();
         }
     }
 }

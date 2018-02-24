@@ -9,6 +9,7 @@ namespace BRBF.Core.Business.RegisteredBusiness
 {
     public interface IRegisteredBusinessRepository : IRepository
     {
+        Task<IEnumerable<RegisteredBusinessDto>> SearchAllRegisteredBusinessesAsync(string searchText, IEnumerable<string> accountNumbers);
         Task<PagedResponseDto<RegisteredBusinessDto>> SearchRegisteredBusinessesAsync(PagedRequestDto<string> searchText);
         Task<RegisteredBusinessDto> GetRegisteredBusinessByAccountNumberAsync(string accountNumber);
         Task<IEnumerable<NotificationRegistration>> GetNotificationRegistrationsForEmailAsync(string email);
