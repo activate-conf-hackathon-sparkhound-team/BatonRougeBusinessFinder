@@ -34,8 +34,40 @@
 	CONSTRAINT [PK_RegisteredBusiness_Id] PRIMARY KEY CLUSTERED ([Id] ASC),
 )
 GO
-
-CREATE INDEX [IX_RegisteredBusiness_AccountNumber] ON [dbo].[RegisteredBusiness] ([AccountNumber])
+CREATE NONCLUSTERED INDEX [IX_RegisteredBusiness_AccountNumber] 
+	ON [dbo].[RegisteredBusiness] ([AccountNumber] ASC)
+	INCLUDE (
+		Id, 
+		AccountName,
+		LegalName,
+		AccountLocationCode,
+		AccountLocation,
+		ContactPerson,
+		BusinessOpenDate,
+		BusinessStatus,
+		BusinessCloseDate,
+		OwnershipType,
+		AccountTypeCode,
+		AccountType,
+		NAICSCode,
+		NAICSCategory,
+		NAICSGroup,
+		ABCStatusCode,
+		ABCStatus,
+		ConsolidatedFiler,
+		MailingAddressLine1,
+		MailingAddressLine2,
+		MailingAddressCity,
+		MailingAddressState,
+		MailingAddressZipCode,
+		PhysicalAddressLine1,
+		PhysicalAddressLine2,
+		PhysicalAddressCity,
+		PhysicalAddressState,
+		PhysicalAddressZipCode,
+		Geolocation,
+		Revision
+	)
 GO
 
 CREATE FULLTEXT CATALOG RegisteredBusinessCatalog AS DEFAULT

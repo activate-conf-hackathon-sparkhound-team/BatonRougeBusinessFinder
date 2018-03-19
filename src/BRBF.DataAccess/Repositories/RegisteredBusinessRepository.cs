@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace BRBF.DataAccess.Repositories
@@ -22,10 +23,10 @@ namespace BRBF.DataAccess.Repositories
 
         public AppSettings AppSettings { get; }
 
-        public async Task<RegisteredBusinessDto> GetRegisteredBusinessByAccountNumberAsync(string accountNumber)
+        public async Task<RegisteredBusinessDto> GetRegisteredBusinessByAccountNumberAsync(string accountNumber, CancellationToken cancellationToken = default(CancellationToken))
         {
             accountNumber = accountNumber?.Trim();
-            var entity = await Context.RegisteredBusinesses.ToAsyncEnumerable().SingleOrDefault(b => b.AccountNumber == accountNumber);
+            var entity = await Context.RegisteredBusinesses.SingleOrDefaultAsync(b => b.AccountNumber == accountNumber, cancellationToken);
             var dto = new RegisteredBusinessDto(
                 entity.AccountNumber,
                 entity.AccountName,
@@ -60,7 +61,7 @@ namespace BRBF.DataAccess.Repositories
             return dto;
         }
 
-        public async Task<IEnumerable<RegisteredBusinessDto>> SearchAllRegisteredBusinessesAsync(string searchText, IEnumerable<string> accountNumbers)
+        public async Task<IEnumerable<RegisteredBusinessDto>> SearchAllRegisteredBusinessesAsync(string searchText, IEnumerable<string> accountNumbers, CancellationToken cancellationToken = default(CancellationToken))
         {
             var numbers = accountNumbers.ToList();
             var tokens = searchText.Split(" ").ToList();
@@ -90,7 +91,7 @@ namespace BRBF.DataAccess.Repositories
                     );
             }
 
-            var entities = await query.ToListAsync();
+            var entities = await query.ToListAsync(cancellationToken);
 
             var dtos = entities
                 .Select(x => new RegisteredBusinessDto(
@@ -129,7 +130,7 @@ namespace BRBF.DataAccess.Repositories
             return dtos;
         }
 
-        public async Task<PagedResponseDto<RegisteredBusinessDto>> SearchRegisteredBusinessesAsync(PagedRequestDto<string> searchText)
+        public async Task<PagedResponseDto<RegisteredBusinessDto>> SearchRegisteredBusinessesAsync(PagedRequestDto<string> searchText, CancellationToken cancellationToken = default(CancellationToken))
         {
             const int defaultPageNumber = 1;
             const int defaultPageSize = 25;
@@ -179,7 +180,7 @@ namespace BRBF.DataAccess.Repositories
                     || rb.PhysicalAddressLine2.Contains(searchText.RequestData)
                     );
             }
-            var totalCount = await query.ToAsyncEnumerable().Count();
+            var totalCount = await query.CountAsync(cancellationToken);
 
             // Ensure Realistic Page Parameters.
             pageSize = Math.Min(100, Math.Max(pageSize, 1));
@@ -193,8 +194,7 @@ namespace BRBF.DataAccess.Repositories
             var list = await query
                 .Skip(itemsToSkip)
                 .Take(pageSize)
-                .ToAsyncEnumerable()
-                .ToList();
+                .ToListAsync(cancellationToken);
             var data = list
                 .Select(x => new RegisteredBusinessDto(
                     x.AccountNumber,
@@ -232,9 +232,9 @@ namespace BRBF.DataAccess.Repositories
             return new PagedResponseDto<RegisteredBusinessDto>(pageSize, pageNumberZeroBased+1, totalCount, data);
         }
 
-        public async Task<IEnumerable<NotificationRegistration>> GetNotificationRegistrationsForEmailAsync(string email)
+        public async Task<IEnumerable<NotificationRegistration>> GetNotificationRegistrationsForEmailAsync(string email, CancellationToken cancellationToken = default(CancellationToken))
         {
-            var result = await Context.NotificationRegistrations.Where(nr => nr.Email == email).ToListAsync();
+            var result = await Context.NotificationRegistrations.Where(nr => nr.Email == email).ToListAsync(cancellationToken);
             return result;
         }
     }
