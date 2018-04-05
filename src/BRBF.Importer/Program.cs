@@ -38,13 +38,18 @@ namespace BRBF.Importer
             var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
             // Setup your configuration:
-            var configuration = new ConfigurationBuilder()
+            var configurationBuilder = new ConfigurationBuilder()
                 //.SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{environmentName}.json", optional: true, reloadOnChange: true)
                 .AddEnvironmentVariables()
-                .AddCommandLine(args)
-                .Build();
+                .AddCommandLine(args);
+            if (environmentName == "Development")
+            {
+                configurationBuilder.AddUserSecrets<Program>(true);
+            }
+
+            var configuration = configurationBuilder.Build();
 
             // Azure connection strings
             Environment.SetEnvironmentVariable("AzureWebJobsDashboard", configuration.GetConnectionString("WebJobsDashboard"));
